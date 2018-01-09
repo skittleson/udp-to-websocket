@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Udp Events</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        
+
+        function createWebSocketClient(){
+            var _connection = new WebSocket("ws://" + window.location.hostname + ":8081")
+            _connection.onopen = function () {
+                content.innerText = "Connection opened"; 
+            }
+            _connection.onclose = function () {
+                content.innerText = "Connection closed" + content.innerText; 
+            }
+            _connection.onerror = function () {
+                content.innerText = "Connection error"+ content.innerText; 
+            }
+            _connection.onmessage = function (event) {
+                content.innerText = event.data + content.innerText; 
+            }
+            return _connection;
+        }
+
+        function retryWebSocketClient(){
+            setTimeout(function(){
+                connection = createWebSocketClient();
+            }, 60 * 1000);
+        }
+
+        var connection;
+        var content;
+        window.addEventListener("load", function () {
+            content = document.getElementById('websocket-data');
+            connect = createWebSocketClient();
+       });
+
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Udp Events</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <pre id='websocket-data'></pre>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

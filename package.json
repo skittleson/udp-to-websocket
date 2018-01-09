@@ -1,0 +1,15 @@
+{
+  "name": "udpwebclient",
+  "version": "1.0.0",
+  "description": "Udp Server to WebSocket Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dgram": "^1.0.1",
+    "nodejs-websocket": "^1.7.1"
+  }
+}
